@@ -1,11 +1,9 @@
 from manim import *
 import numpy as np
-from datetime import datetime, timedelta
 
 class AdvancedChaosSystem(Scene):
     def __init__(self):
         super().__init__()
-        # Define standard spacing and layout parameters
         self.STANDARD_PADDING = 0.5
         self.SECTION_PADDING = 1.0
         self.TEXT_SCALE = 0.7
@@ -27,11 +25,15 @@ class AdvancedChaosSystem(Scene):
         return points, derivatives
 
     def create_layout_grid(self):
-        # Create a 3x3 grid for organized layout
-        return Rectangle().get_grid(3, 3, height=config.frame_height - 1, width=config.frame_width - 1)
+        # Create a 3x3 grid using VGroup and Rectangle
+        grid = VGroup(*[
+            Rectangle(width=config.frame_width/3 - 0.1, height=config.frame_height/3 - 0.1)
+            for _ in range(9)
+        ])
+        grid.arrange_in_grid(rows=3, cols=3, buff=0.1)
+        return grid
 
     def create_enhanced_derivation(self):
-        # More detailed mathematical derivation with proper spacing
         derivation = VGroup(
             Text("Mathematical Foundation", font_size=32, color=BLUE),
             MathTex(r"\text{1. Navier-Stokes Equations}"),
@@ -44,7 +46,6 @@ class AdvancedChaosSystem(Scene):
             MathTex(r"\dot{z} = xy-\beta z")
         ).arrange(DOWN, buff=0.3)
         
-        # Add explanation boxes
         explanations = VGroup(
             Text("σ: Prandtl number", font_size=20),
             Text("ρ: Rayleigh number", font_size=20),
@@ -54,7 +55,6 @@ class AdvancedChaosSystem(Scene):
         return VGroup(derivation, explanations).arrange(RIGHT, buff=1)
 
     def create_weather_data_visualization(self):
-        # Create mock weather data visualization
         weather_data = VGroup(
             Text("Weather Prediction Accuracy", font_size=28, color=BLUE),
             self.create_accuracy_graph(),
@@ -67,9 +67,9 @@ class AdvancedChaosSystem(Scene):
         axes = Axes(
             x_range=[0, 14, 2],
             y_range=[0, 100, 20],
-            axis_config={"include_tip": True},
-            x_axis_config={"label": "Days"},
-            y_axis_config={"label": "Accuracy (%)"}
+            x_length=7,  # Updated from axis_length to x_length
+            y_length=5,  # Updated from axis_length to y_length
+            axis_config={"include_tip": True}
         )
         
         accuracy_curve = axes.plot(
@@ -79,8 +79,9 @@ class AdvancedChaosSystem(Scene):
         
         return VGroup(axes, accuracy_curve)
 
+
+
     def create_uncertainty_cone(self):
-        # Create an uncertainty cone visualization
         start_point = np.array([-3, 0, 0])
         end_points = [np.array([3, y, 0]) for y in np.linspace(-2, 2, 10)]
         
@@ -101,7 +102,6 @@ class AdvancedChaosSystem(Scene):
         return VGroup(cone, lines)
 
     def create_applications_section(self):
-        # Create organized applications section
         applications = VGroup(
             Text("Applications of Chaos Theory", font_size=32, color=GREEN),
             VGroup(
@@ -121,7 +121,6 @@ class AdvancedChaosSystem(Scene):
         return SurroundingRectangle(box, buff=0.2, color=GREEN_A)
 
     def create_interactive_demonstration(self):
-        # Create interactive butterfly effect demonstration
         demo = VGroup(
             Text("Interactive Demonstration", font_size=32, color=YELLOW),
             self.create_butterfly_effect_visual(),
@@ -130,7 +129,6 @@ class AdvancedChaosSystem(Scene):
         return demo
 
     def create_butterfly_effect_visual(self):
-        # Create butterfly effect visualization
         initial_points = [np.array([0, 0, 0]), np.array([0.01, 0, 0])]
         paths = VGroup(*[
             self.create_trajectory(point)
@@ -145,7 +143,6 @@ class AdvancedChaosSystem(Scene):
         return path
 
     def create_sensitivity_controls(self):
-        # Create interactive controls visualization
         controls = VGroup(
             Text("Initial Condition Sensitivity", font_size=24),
             Arrow(LEFT * 2, RIGHT * 2),
@@ -154,10 +151,9 @@ class AdvancedChaosSystem(Scene):
         return controls
 
     def construct(self):
-        # Create main layout grid
         grid = self.create_layout_grid()
-        
-        # Title sequence
+        self.add(grid)
+
         title = Text("Advanced Chaos Theory", font_size=48)
         subtitle = Text("Mathematics, Weather, and Applications", font_size=36)
         title_group = VGroup(title, subtitle).arrange(DOWN)
@@ -166,34 +162,29 @@ class AdvancedChaosSystem(Scene):
         self.wait()
         self.play(title_group.animate.scale(0.6).to_edge(UP))
 
-        # Mathematical section
         math_section = self.create_enhanced_derivation()
         math_section.scale(0.8).move_to(grid[0])
         
         self.play(Write(math_section), run_time=3)
         self.wait()
 
-        # Weather data visualization
         weather_section = self.create_weather_data_visualization()
         weather_section.scale(0.8).move_to(grid[4])
         
         self.play(Create(weather_section), run_time=3)
         self.wait()
 
-        # Applications section
         applications = self.create_applications_section()
         applications.scale(0.8).move_to(grid[8])
         
         self.play(Create(applications), run_time=2)
         self.wait()
 
-        # Interactive demonstration
         demo = self.create_interactive_demonstration()
         demo.scale(0.8).move_to(grid[5])
         
         self.play(Create(demo), run_time=2)
         
-        # Create enhanced 3D visualization
         self.play(
             Rotate(
                 demo,
@@ -204,7 +195,6 @@ class AdvancedChaosSystem(Scene):
             )
         )
         
-        # Add final summary
         summary = VGroup(
             Text("Key Insights:", font_size=32, color=GOLD),
             Text("• Deterministic chaos exists in many systems", font_size=24),
@@ -216,19 +206,7 @@ class AdvancedChaosSystem(Scene):
         self.play(Write(summary))
         self.wait(2)
         
-        # Elegant fade out
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
             run_time=2
         )
-
-if __name__ == "__main__":
-    with tempconfig({
-        "quality": "high_quality",
-        "preview": True,
-        "frame_rate": 60,
-        "pixel_width": 1920,
-        "pixel_height": 1080,
-    }):
-        scene = AdvancedChaosSystem()
-        scene.render()

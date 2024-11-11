@@ -73,7 +73,7 @@ class EnhancedPendulumAnimation(Scene):
         self.time = 0
 
         # Animation updater function
-        def update_pendulum(dt):
+        def update_pendulum(mob, dt):
             self.time += dt
             t = self.time
             
@@ -110,7 +110,7 @@ class EnhancedPendulumAnimation(Scene):
                 phase_trail.points = phase_trail.points[-150:]
         
         # Add updater to scene
-        self.on_frame_end_callback = update_pendulum
+        self.add_updater(update_pendulum)
         
         # Add educational elements
         title = Text("Damped Harmonic Oscillator", font_size=36, color=TEXT_COLOR)
