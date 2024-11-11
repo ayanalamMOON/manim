@@ -1,0 +1,8 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/ayana/Programming and Projects/manim/project/media/videos/scene3/1080p60/partial_movie_files/ComplexRotation/3977891868_413154255_223132457.mp4'
+file 'file:C:/Users/ayana/Programming and Projects/manim/project/media/videos/scene3/1080p60/partial_movie_files/ComplexRotation/2852726489_1700801590_129941813.mp4'
+file 'file:C:/Users/ayana/Programming and Projects/manim/project/media/videos/scene3/1080p60/partial_movie_files/ComplexRotation/2852726489_1871557189_3411095514.mp4'
+file 'file:C:/Users/ayana/Programming and Projects/manim/project/media/videos/scene3/1080p60/partial_movie_files/ComplexRotation/2852726489_3808728031_1378444984.mp4'
+file 'file:C:/Users/ayana/Programming and Projects/manim/project/media/videos/scene3/1080p60/partial_movie_files/ComplexRotation/2852726489_3184962746_239797457.mp4'
+file 'file:C:/Users/ayana/Programming and Projects/manim/project/media/videos/scene3/1080p60/partial_movie_files/ComplexRotation/2852726489_2881110924_1075738677.mp4'
+file 'file:C:/Users/ayana/Programming and Projects/manim/project/media/videos/scene3/1080p60/partial_movie_files/ComplexRotation/2852726489_1704852926_1647213810.mp4'
